@@ -571,6 +571,18 @@ h4 {
 
 }
 
+.pricing-cell img {
+    height: 24px;
+    width: 24px;
+}
+
+.wrapper-badges {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
 /* Explicit row heights for multiline cells */
 .pricing-col .pricing-cell:nth-child(5) {
     height: 85px;
@@ -614,9 +626,11 @@ h4 {
     border-bottom-left-radius: 6px;
 }
 
-.plan-col .pricing-cell:last-child {
+/* .plan-col .pricing-cell:last-child {
     border-bottom: none;
-}
+} */
+
+
 
 .flex-center {
     display: flex;
@@ -1076,4 +1090,9 @@ h4 {
         margin-left: auto;
         margin-right: auto;
     }
+
+    .wrapper-badges {
+        display: block;
+    }
+
 }

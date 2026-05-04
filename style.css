@@ -205,19 +205,20 @@ h4 {
 }
 
 .hero-content {
-  width: 48%;
+  width: 42%;
 }
 
 .hero-image {
-  width: 52%;
+  width: 58%;
 }
 
 .hero-container {
   display: flex;
   width: 100%;
   align-items: center;
-  gap: 50px;
+  gap: 0px;
   overflow: visible;
+  margin-top: 55px;
 }
 
 .hero-title {
@@ -259,8 +260,8 @@ h4 {
 
 .hero-image img {
   border-radius: 12px;
-  max-width: none;
   margin-bottom: -150px;
+  max-width: none;
 }
 
 /* Features Section */
@@ -294,6 +295,8 @@ h4 {
   margin-bottom: 50px;
   padding-top: 175px;
 }
+
+
 
 .section-title {
   font-size: 50px;
@@ -588,6 +591,8 @@ h4 {
     flex-direction: column;
     text-align: center;
     gap: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
   }
 
   .hero-content,
@@ -675,6 +680,8 @@ h4 {
     text-align: center !important;
     display: flex !important;
     gap: 40px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
 
   .hero-content,
