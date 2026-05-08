@@ -9,12 +9,12 @@
         content="TotaLand helps land professionals manage tracts, contracts, titles, and GIS maps in one secure cloud platform." />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#104d82" />
-    <link rel="canonical" href="https://totaland.com/" />
+    <link rel="canonical" href="https://www.totaland.com/clients" />
     <meta property="og:title" content="TotaLand - Land Management Software for Land Professionals" />
     <meta property="og:description"
         content="Manage tracts, contracts, titles, and maps in one secure cloud platform." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://totaland.com/" />
+    <meta property="og:url" content="https://www.totaland.com/clients" />
     <meta property="og:image" content="https://totaland.com/public/images/Laptop.svg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="TotaLand - Land Management Software for Land Professionals" />
@@ -32,22 +32,39 @@
             <div class="logo">
                 <a href="index.html"><img src="public/images/logo.svg" alt="TotaLand Logo" width="179"
                         height="40" /></a>
-
                 <!-- Main Navigation -->
                 <nav class="nav" id="primary-navigation" aria-label="Primary">
                     <ul class="nav-list">
                         <li><a href="index.html" class="nav-link">Home</a></li>
-                        <li>
-                            <a href="features.html" class="nav-link">Features</a>
-                        </li>
+                        <li><a href="features.html" class="nav-link">Features</a></li>
                         <li><a href="pricing.html" class="nav-link">Pricing</a></li>
-                        <li><a href="about-us.html" class="nav-link">About</a></li>
+                        <li><a href="aboutus.html" class="nav-link">About Us</a></li>
                     </ul>
                 </nav>
             </div>
 
             <div class="header-actions" id="header-actions">
-                <a href="https://www.totaland.com/LogOn2" class="btn btn-secondary small">Log on</a>
+                <div class="logon-dropdown-wrapper">
+                    <a href="#" class="btn btn-secondary small" id="logon-btn">Log on</a>
+                    <div class="logon-dropdown" id="logon-dropdown">
+                        <form action="https://www.totaland.com/authenticate" method="post" class="logon-form">
+                            <input type="hidden" name="returnUrl" value="" />
+                            <div class="form-group">
+                                <label for="userName">Username</label>
+                                <input type="text" id="userName" name="userName" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" id="password" name="password" required />
+                            </div>
+                            <button type="submit" class="btn-submit" id="loginbtn">Log On Now</button>
+                            <div class="logon-links">
+                                <a href="https://www.totaland.com/problem/forgotusername">Recover Login</a>
+                                <a href="https://www.totaland.com/problem/forgotpassword">Recover Password</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <a href="https://www.totaland.com/Trial" class="btn btn-primary small">Start Free Trial</a>
             </div>
             <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false"
@@ -219,7 +236,7 @@
                     <div class="footer-column">
                         <h4>Company</h4>
                         <ul>
-                            <li><a href="about-us.html">About Us</a></li>
+                            <li><a href="aboutus.html">About Us</a></li>
                             <li><a href="clients.html" class="active">Our Clients</a></li>
                         </ul>
                     </div>
@@ -234,13 +251,8 @@
                     <div class="footer-column">
                         <h4>Resources</h4>
                         <ul>
-                            <li>
-                                <a href="term-condition.html">Terms &
-                                    Conditions</a>
-                            </li>
-                            <li>
-                                <a href="privacy-policy.html">Privacy Policy</a>
-                            </li>
+                            <li><a href="termsandconditions.html">Terms & Conditions</a></li>
+                            <li><a href="privacypolicy.html">Privacy Policy</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
@@ -256,8 +268,8 @@
                                     target="_blank" rel="noopener noreferrer">P.O. Box 0311, Youngsville, LA 70592</a>
                             </li>
                             <li class="text-ellipsis">
-                                <img src="public/images/mail.svg" alt="mail" /><a href="mailto:sales@totaland.com">
-                                    sales@totaland.com</a>
+                                <img src="public/images/mail.svg" alt="mail" /><a
+                                    href="mailto:sales@totaland.com">sales@totaland.com</a>
                             </li>
                         </ul>
                     </div>
@@ -270,33 +282,7 @@
     </footer>
 
     <script src="public/js/client-modal.js"></script>
-    <script>
-        // Simple menu toggle for mobile
-        const menuToggle = document.querySelector(".menu-toggle");
-        const nav = document.querySelector(".nav");
-        const headerActions = document.querySelector(".header-actions");
-
-        menuToggle.addEventListener("click", function () {
-            const isExpanded = this.getAttribute("aria-expanded") === "true";
-            this.setAttribute("aria-expanded", String(!isExpanded));
-            this.classList.toggle("active");
-            nav.classList.toggle("active");
-            headerActions.classList.toggle("active");
-            document.body.classList.toggle("menu-open");
-        });
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                if (nav.classList.contains("active")) {
-                    menuToggle.setAttribute("aria-expanded", "false");
-                    menuToggle.classList.remove("active");
-                    nav.classList.remove("active");
-                    headerActions.classList.remove("active");
-                    document.body.classList.remove("menu-open");
-                }
-            }
-        });
-    </script>
+    <script src="public/js/header-logic.js"></script>
 </body>
 
 </html>
