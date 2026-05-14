@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log On - TotaLand</title>
+    <meta name="description"
+        content="Securely log on to TotaLand to access land records, contracts, maps, and workflows.">
+    <link rel="icon" type="image/svg+xml" href="public/images/logo.svg">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html"><img src="public/images/logo.svg" alt="TotaLand Logo" width="179"
+                        height="40" /></a>
+                <!-- Main Navigation -->
+                <nav class="nav" id="primary-navigation" aria-label="Primary">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="features.html" class="nav-link">Features</a></li>
+                        <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+                        <li><a href="aboutus.html" class="nav-link">About Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="header-actions" id="header-actions">
+                <a href="trial.html" class="btn btn-primary-trial">Start Free Trial</a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false"
+                aria-controls="primary-navigation header-actions" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="logon-page-wrapper-new">
+        <div class="container">
+            <div class="logon-header-center">
+                <h1 class="logon-main-title">Log On</h1>
+            </div>
+
+            <div class="logon-container-new">
+                <div class="logon-card-new">
+                    <!-- Error Alert (shown via JS) -->
+                    <div id="error-alert" class="logon-error-alert">
+                        Invalid User Name or Password
+                    </div>
+
+                    <form id="logonForm" action="https://www.totaland.com/desktop" method="POST" novalidate>
+                        <div class="form-group">
+                            <div class="label-row">
+                                <label for="userName">User Name <span class="required-star">*</span></label>
+                                <span class="recover-link">Forgot User Name? <a href="forgotusername.html">Recover
+                                        Login</a></span>
+                            </div>
+                            <input type="text" id="userName" name="userName" placeholder="Enter your user name" required
+                                autocomplete="username">
+                            <span class="error-message" id="error-userName">User Name can't be empty</span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="label-row">
+                                <label for="password">Password <span class="required-star">*</span></label>
+                                <span class="recover-link">Forgot Password? <a href="forgotpassword.html">Recover Password</a></span>
+                            </div>
+                            <input type="password" id="password" name="password" placeholder="Enter your password"
+                                required autocomplete="current-password">
+                            <span class="error-message" id="error-password">Password can't be empty</span>
+                        </div>
+
+                        <button type="submit" class="btn-logon-new" id="logonButton">
+                            <span class="btn-text">Log On</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="logon-info-box">
+                    This website enables access to data which may be proprietary and confidential and is intended for
+                    use by individuals who have been explicitly authorized by way of a User ID and Password. If you have
+                    not been explicitly authorized to access this website, you must leave immediately without making any
+                    attempt to gain access. By clicking Log On, you agree to the <a href="termsandconditions.html">Terms
+                        and Conditions</a> as set forth by this website.
+                </div>
+
+                <div class="logon-footer-new">
+                    Didn't have an account yet? <a href="trial.html">Start your Free Trial</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="public/js/toast-logic.js"></script>
+    <script src="public/js/header-logic.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const logonForm = document.getElementById('logonForm');
+            const logonButton = document.getElementById('logonButton');
+            const userInput = document.getElementById('userName');
+            const passInput = document.getElementById('password');
+            const errorUser = document.getElementById('error-userName');
+            const errorPass = document.getElementById('error-password');
+            const errorAlert = document.getElementById('error-alert');
+            const btnText = logonButton.querySelector('.btn-text');
+            const btnLoader = logonButton.querySelector('.btn-loader');
+
+            const validate = () => {
+                let isValid = true;
+                
+                if (!userInput.value.trim()) {
+                    userInput.classList.add('invalid-input');
+                    errorUser.style.display = 'block';
+                    isValid = false;
+                } else {
+                    userInput.classList.remove('invalid-input');
+                    errorUser.style.display = 'none';
+                }
+
+                if (!passInput.value.trim()) {
+                    passInput.classList.add('invalid-input');
+                    errorPass.style.display = 'block';
+                    isValid = false;
+                } else {
+                    passInput.classList.remove('invalid-input');
+                    errorPass.style.display = 'none';
+                }
+
+                return isValid;
+            };
+
+            [userInput, passInput].forEach(input => {
+                input.addEventListener('input', () => {
+                    if (input.classList.contains('invalid-input')) {
+                        validate();
+                    }
+                });
+            });
+
+            if (logonForm) {
+                logonForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    if (!validate()) return;
+
+                    const username = userInput.value.trim();
+                    const password = passInput.value.trim();
+
+                    // Loading State
+                    logonButton.disabled = true;
+                    btnText.style.opacity = '0';
+                    btnLoader.style.display = 'block';
+                    errorAlert.style.display = 'none';
+
+                    // Simulate API Call with "wrong creds" check for demo
+                    setTimeout(() => {
+                        // For demo: if username is "error", show the error alert
+                        if (username === 'error' || (username !== 'admin' && password !== 'admin')) {
+                            errorAlert.style.display = 'block';
+                            logonButton.disabled = false;
+                            btnText.style.opacity = '1';
+                            btnLoader.style.display = 'none';
+                        } else {
+                            // Redirect on success
+                            window.location.href = 'index.html';
+                        }
+                    }, 1500);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Your Free Trial - TotaLand</title>
+    <meta name="description"
+        content="Begin your 30-day free trial of TotaLand's land management software. No credit card required.">
+    <link rel="icon" type="image/svg+xml" href="public/images/logo.svg">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html"><img src="public/images/logo.svg" alt="TotaLand Logo" width="179"
+                        height="40" /></a>
+                <!-- Main Navigation -->
+                <nav class="nav" id="primary-navigation" aria-label="Primary">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="features.html" class="nav-link">Features</a></li>
+                        <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+                        <li><a href="aboutus.html" class="nav-link">About Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="header-actions" id="header-actions">
+                <div class="logon-dropdown-wrapper">
+                    <a href="logon.html" class="btn btn-secondary-trial" id="logon-btn">Logon</a>
+                </div>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false"
+                aria-controls="primary-navigation header-actions" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="trial-page-wrapper-new">
+        <div class="trial-container">
+            <div class="trial-header-center">
+                <h1 class="trial-main-title">Setting up your free trial is easy</h1>
+            </div>
+
+            <div class="trial-container-new">
+                <!-- Left Column: Form -->
+                <div class="trial-form-section">
+                    <form id="trialSignupForm" action="https://www.totaland.com/Trial" method="POST" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name <span class="required-star">*</span></label>
+                                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name"
+                                    required>
+                                <span class="error-message" id="error-firstName">First name is required (letters
+                                    only)</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name <span class="required-star">*</span></label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name"
+                                    required>
+                                <span class="error-message" id="error-lastName">Last name is required (letters
+                                    only)</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="companyName">Company Name <span class="required-star">*</span></label>
+                            <input type="text" id="companyName" name="companyName" placeholder="Enter your company name"
+                                required>
+                            <span class="error-message" id="error-companyName">Company name is required</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required-star">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                            <span class="error-message" id="error-email">Please enter a valid email address</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="userName">User Name <span class="required-star">*</span></label>
+                            <input type="text" id="userName" name="userName" placeholder="Enter your preferred username"
+                                required>
+                            <span class="error-message" id="error-userName">User Name can't be empty (3-20 chars)</span>
+                        </div>
+
+                        <div class="form-group checkbox-wrapper">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" id="contactMe" name="contactMe">
+                                <span class="checkmark"></span>
+                                <span class="label-text">Yes, it's okay to contact me by phone during the trial.</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-create-trial" id="trialButton">
+                            <span class="btn-text">Create Trail Account</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+
+                        <p class="trial-footer-terms">
+                            By creating a trial account you agree to all our <a href="termsandconditions.html">Terms &
+                                Conditions</a>
+                        </p>
+                    </form>
+                </div>
+
+                <!-- Right Column: Benefits & Trust -->
+                <div class="trial-info-section">
+                    <p class="benefits-intro">Once you send the form on this page, we'll:</p>
+
+                    <ul class="benefits-checklist">
+                        <li class="li">
+                            <div class="check-circle">
+                                <svg width="12" height="9" viewBox="0 0 12 9" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 4.5L4 7.5L11 0.5" stroke="white" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <span>Create your company account</span>
+                        </li>
+                        <li class="li">
+                            <div class="check-circle">
+                                <svg width="12" height="9" viewBox="0 0 12 9" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 4.5L4 7.5L11 0.5" stroke="white" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <span>Create your first user account</span>
+                        </li>
+                        <li class="li">
+                            <div class="check-circle">
+                                <svg width="12" height="9" viewBox="0 0 12 9" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 4.5L4 7.5L11 0.5" stroke="white" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <span>Create a default client for your company</span>
+                        </li>
+                        <li class="has-nested li">
+                            <div class="benefit-head">
+                                <div class="check-circle">
+                                    <svg width="12" height="9" viewBox="0 0 12 9" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 4.5L4 7.5L11 0.5" stroke="white" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </div>
+                                <span>Create a trial project, complete with:</span>
+                            </div>
+                            <ul class="nested-benefits">
+                                <li>Location records</li>
+                                <li>Demo OGML form</li>
+                                <li>Default broker draft</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div class="trust-mini-section">
+                        <p class="trust-title">Trusted by Land Professionals Nationwide</p>
+                        <div class="mini-logos">
+                            <img src="public/images/logo-land.svg" alt="LMS" width="40" height="33">
+                            <img src="public/images/logo-2-land.svg" alt="Reagan" width="56" height="40">
+                            <img src="public/images/logo-3-land.svg" alt="TCO" width="50" height="33">
+                            <img src="public/images/logo-4-land.svg" alt="BETA" width="48" height="34">
+                            <img src="public/images/logo-5-land.svg" alt="Discovery" width="112" height="35">
+                            <img src="public/images/logo-6-land.svg" alt="Inland" width="55" height="35">
+                            
+                        </div>
+                    </div>
+
+                    <div class="buyout-banner">
+                        <h3>Have us buy out your contract today!</h3>
+                        <p>Have a question? Just <a href="aboutus.html" class="underline-link"><strong>drop us a
+                                    note</strong></a> or call us at <a href="tel:3372315877"
+                                 class="phone-link"><strong>(337) 231-5877</strong></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="public/js/client-modal.js"></script>
+    <script src="public/js/header-logic.js"></script>
+    <script src="public/js/header-logon.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const trialForm = document.getElementById('trialSignupForm');
+            const trialButton = document.getElementById('trialButton');
+            const btnText = trialButton.querySelector('.btn-text');
+            const btnLoader = trialButton.querySelector('.btn-loader');
+
+            const validationRules = {
+                firstName: {
+                    regex: /^[a-zA-Z\s]{2,30}$/,
+                    errorMsg: "First Name can't be empty (letters only)"
+                },
+                lastName: {
+                    regex: /^[a-zA-Z\s]{2,30}$/,
+                    errorMsg: "Last Name can't be empty (letters only)"
+                },
+                companyName: {
+                    regex: /^[a-zA-Z0-9\s.,&'-]{2,50}$/,
+                    errorMsg: "Company Name can't be empty"
+                },
+                email: {
+                    regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    errorMsg: "Please enter a valid email address"
+                },
+                userName: {
+                    regex: /^[a-zA-Z0-9_-]{3,20}$/,
+                    errorMsg: "User Name can't be empty (3-20 chars)"
+                }
+            };
+
+            const validateField = (id) => {
+                const input = document.getElementById(id);
+                const errorSpan = document.getElementById(`error-${id}`);
+                const rule = validationRules[id];
+
+                if (!rule.regex.test(input.value.trim())) {
+                    input.classList.add('invalid-input');
+                    errorSpan.textContent = rule.errorMsg;
+                    errorSpan.style.display = 'block';
+                    return false;
+                } else {
+                    input.classList.remove('invalid-input');
+                    errorSpan.style.display = 'none';
+                    return true;
+                }
+            };
+
+            if (trialForm) {
+                // Remove error highlighting on input
+                Object.keys(validationRules).forEach(id => {
+                    const input = document.getElementById(id);
+                    input.addEventListener('input', () => {
+                        if (input.classList.contains('invalid-input')) {
+                            validateField(id);
+                        }
+                    });
+                });
+
+                trialForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    let isValid = true;
+                    Object.keys(validationRules).forEach(id => {
+                        if (!validateField(id)) {
+                            isValid = false;
+                        }
+                    });
+
+                    if (!isValid) return;
+
+                    // Loading State
+                    trialButton.disabled = true;
+                    btnText.style.opacity = '0';
+                    btnLoader.style.display = 'block';
+
+                    // Simulate Account Creation
+                    setTimeout(() => {
+                        window.location.href = 'logon.html';
+                    }, 1500);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

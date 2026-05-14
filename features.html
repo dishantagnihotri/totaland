@@ -42,7 +42,7 @@
 
       <div class="header-actions" id="header-actions">
         <div class="logon-dropdown-wrapper">
-          <a href="#" class="btn btn-secondary small" id="logon-btn">Log on</a>
+          <a href="logon.html" class="btn btn-secondary small" id="logon-btn">Log on</a>
           <div class="logon-dropdown" id="logon-dropdown">
             <form action="https://www.totaland.com/authenticate" method="post" class="logon-form">
               <input type="hidden" name="returnUrl" value="" />
@@ -62,7 +62,7 @@
             </form>
           </div>
         </div>
-        <a href="https://www.totaland.com/Trial" class="btn btn-primary small">Start Free Trial</a>
+        <a href="trial.html" class="btn btn-primary small">Start Free Trial</a>
       </div>
       <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false"
         aria-controls="primary-navigation header-actions" type="button">
@@ -175,7 +175,9 @@
           </a>
         </div>
         <div class="feature-visual">
-          <img src="public/images/Frame-1.svg" alt="Revolutionary Architecture Dashboard" />
+          <a href="#" class="btn-video" data-video-url="https://player.vimeo.com/video/286245683">
+            <img src="public/images/Frame-1.svg" alt="Revolutionary Architecture Dashboard" />
+          </a>
         </div>
       </div>
   </div>
@@ -186,7 +188,9 @@
     <section class="feature-section">
       <div class="feature-row reverse">
         <div class="feature-visual">
-          <img src="public/images/Frame-2.svg" alt="Broker & Client Billing Dashboard" />
+          <a href="#" class="btn-video" data-video-url="https://player.vimeo.com/video/254318480">
+            <img src="public/images/Frame-2.svg" alt="Broker & Client Billing Dashboard" />
+          </a>
         </div>
         <div class="feature-content">
           <h2 class="title-large-video">Broker & Client Billing</h2>
@@ -231,7 +235,9 @@
           </a>
         </div>
         <div class="feature-visual">
-          <img src="public/images/Frame-3.svg" alt="GIS Mapping Dashboard" />
+          <a href="#" class="btn-video" data-video-url="https://player.vimeo.com/video/254526634">
+            <img src="public/images/Frame-3.svg" alt="GIS Mapping Dashboard" />
+          </a>
         </div>
       </div>
   </div>
@@ -242,7 +248,9 @@
     <section class="feature-section">
       <div class="feature-row reverse">
         <div class="feature-visual">
-          <img src="public/images/Frame-4.svg" alt="Contract Generator Dashboard" />
+          <a href="#" class="btn-video" data-video-url="https://player.vimeo.com/video/254318555">
+            <img src="public/images/Frame-4.svg" alt="Contract Generator Dashboard" />
+          </a>
         </div>
         <div class="feature-content">
           <h2 class="title-large-video">Contract Generator</h2>
@@ -285,7 +293,9 @@
           </a>
         </div>
         <div class="feature-visual">
-          <img src="public/images/Frame-5.svg" alt="Abstract Assembler Dashboard" />
+          <a href="#" class="btn-video" data-video-url="https://player.vimeo.com/video/254318538">
+            <img src="public/images/Frame-5.svg" alt="Abstract Assembler Dashboard" />
+          </a>
         </div>
       </div>
   </div>
@@ -398,7 +408,7 @@
     <div class="container">
       <h2>Ready to Simplify Your Land Management?</h2>
       <p>Streamline your land management projects with TotaLand today.</p>
-      <a href="https://www.totaland.com/Trial" class="btn btn-white">Start Free Trial</a>
+      <a href="trial.html" class="btn btn-white">Start Free Trial</a>
     </div>
   </section>
 
@@ -433,7 +443,7 @@
             <ul>
               <li><a href="features.html" class="active">Features</a></li>
               <li><a href="pricing.html">Pricing</a></li>
-              <li><a href="https://www.totaland.com/Trial">Free Trial</a></li>
+              <li><a href="trial.html">Free Trial</a></li>
             </ul>
           </div>
           <div class="footer-column">
@@ -469,8 +479,10 @@
     </div>
   </footer>
 
+  <script src="public/js/toast-logic.js"></script>
   <script src="public/js/client-modal.js"></script>
   <script src="public/js/header-logic.js"></script>
+  <script src="public/js/header-logon.js"></script>
 
   <!-- Video Modal -->
   <div class="video-modal-overlay" id="videoModal">

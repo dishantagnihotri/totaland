@@ -15,6 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (logonBtn && logonDropdown) {
         logonBtn.addEventListener('click', (e) => {
+            const href = logonBtn.getAttribute('href');
+            if (href && href !== '#' && href !== '') {
+                // If the button has a real link (like logon.html), allow navigation
+                return;
+            }
             e.preventDefault();
             e.stopPropagation();
             logonDropdown.classList.toggle('active');

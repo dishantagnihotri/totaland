@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recover User Name - TotaLand</title>
+    <meta name="description" content="Recover your TotaLand User Name securely.">
+    <link rel="icon" type="image/svg+xml" href="public/images/logo.svg">
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html"><img src="public/images/logo.svg" alt="TotaLand Logo" width="179"
+                        height="40" /></a>
+                <!-- Main Navigation -->
+                <nav class="nav" id="primary-navigation" aria-label="Primary">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="features.html" class="nav-link">Features</a></li>
+                        <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+                        <li><a href="aboutus.html" class="nav-link">About Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="header-actions" id="header-actions">
+                <a href="logon.html" class="btn btn-secondary-trial" id="logon-btn">Logon</a>
+                <a href="trial.html" class="btn btn-primary-trial">Start Free Trial</a>
+            </div>
+            <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false"
+                aria-controls="primary-navigation header-actions" type="button">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="logon-page-wrapper-new">
+        <div class="container">
+            <div class="logon-header-center">
+                <h1 class="logon-main-title">Recover User Name</h1>
+            </div>
+
+            <div class="logon-container-new">
+                <div class="logon-card-new">
+                    <div id="error-alert" class="logon-error-alert">
+                        Invalid Email Address or Account Not Found
+                    </div>
+
+                    <div class="logon-step-info">
+                        <p class="logon-step-desc">
+                            To retrieve your TotaLand User Name, enter your email address in the field below. The email
+                            you
+                            enter must match the address associated with your existing TotaLand account.
+                        </p>
+                    </div>
+
+                    <form id="recoverForm" novalidate>
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required-star">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                            <span class="error-message" id="error-email">Email Address can't be empty</span>
+                        </div>
+
+                        <button type="submit" class="btn-logon-new btn-auto recover-btn" id="recoverButton">
+                            <span class="btn-text">Recover User Name</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="logon-footer-new">
+                    Already have your user name? <a href="logon.html">Get back to Log On</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="public/js/header-logic.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const recoverForm = document.getElementById('recoverForm');
+            const recoverButton = document.getElementById('recoverButton');
+            const emailInput = document.getElementById('email');
+            const errorEmail = document.getElementById('error-email');
+            const errorAlert = document.getElementById('error-alert');
+            const btnText = recoverButton.querySelector('.btn-text');
+            const btnLoader = recoverButton.querySelector('.btn-loader');
+
+            const validate = () => {
+                const email = emailInput.value.trim();
+                if (!email) {
+                    emailInput.classList.add('invalid-input');
+                    errorEmail.textContent = "Email Address can't be empty";
+                    errorEmail.style.display = 'block';
+                    return false;
+                } else if (!email.includes('@')) {
+                    emailInput.classList.add('invalid-input');
+                    errorEmail.textContent = "Please enter a valid email address";
+                    errorEmail.style.display = 'block';
+                    return false;
+                } else {
+                    emailInput.classList.remove('invalid-input');
+                    errorEmail.style.display = 'none';
+                    return true;
+                }
+            };
+
+            emailInput.addEventListener('input', () => {
+                if (emailInput.classList.contains('invalid-input')) {
+                    validate();
+                }
+            });
+
+            if (recoverForm) {
+                recoverForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    if (!validate()) return;
+
+                    // Loading State
+                    recoverButton.disabled = true;
+                    btnText.style.opacity = '0';
+                    btnLoader.style.display = 'block';
+                    errorAlert.style.display = 'none';
+
+                    // Simulate API Call
+                    setTimeout(() => {
+                        if (emailInput.value.trim() === 'error@test.com') {
+                            errorAlert.style.display = 'block';
+                            recoverButton.disabled = false;
+                            btnText.style.opacity = '1';
+                            btnLoader.style.display = 'none';
+                        } else {
+                            setTimeout(() => {
+                                window.location.href = 'logon.html';
+                            }, 2000);
+                        }
+                    }, 1500);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
