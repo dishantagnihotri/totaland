@@ -8,7 +8,9 @@
     <meta name="description"
         content="Begin your 30-day free trial of TotaLand's land management software. No credit card required.">
     <link rel="icon" type="image/svg+xml" href="public/images/logo.svg">
+    <link rel="icon" type="image/svg+xml" href="public/images/favicon.svg" />
     <link rel="stylesheet" href="main.css">
+    <script src="public/js/api.js" async defer></script>
 </head>
 
 <body>
@@ -60,6 +62,9 @@
                                     required>
                                 <span class="error-message" id="error-firstName">First name is required (letters
                                     only)</span>
+                                <span class="tooltip-text"><em>TotaLand will create your contact listing using your
+                                        first and last name, but
+                                        you may change this.</em></span>
                             </div>
                             <div class="form-group">
                                 <label for="lastName">Last Name <span class="required-star">*</span></label>
@@ -75,19 +80,29 @@
                             <input type="text" id="companyName" name="companyName" placeholder="Enter your company name"
                                 required>
                             <span class="error-message" id="error-companyName">Company name is required</span>
+                            <span class="tooltip-text">
+                                <em>Name of the Brokerage. This can be edited later, but this is the name that will
+                                    appear by default on reports and billing</em>
+                            </span>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email Address <span class="required-star">*</span></label>
                             <input type="email" id="email" name="email" placeholder="Enter your email address" required>
                             <span class="error-message" id="error-email">Please enter a valid email address</span>
+                            <span class="tooltip-text"><em>This email must be valid. Although it can be changed later,
+                                    the email you provide here will be permanently associated with this
+                                    account</em></span>
                         </div>
 
                         <div class="form-group">
                             <label for="userName">User Name <span class="required-star">*</span></label>
                             <input type="text" id="userName" name="userName" placeholder="Enter your preferred username"
                                 required>
-                            <span class="error-message" id="error-userName">User Name can't be empty (3-20 chars)</span>
+                            <span class="error-message" id="error-userName">User Name can't be empty (4-20 chars)</span>
+                            <span class="tooltip-text">
+                                <em>The username you will use to access your account.</em>
+                            </span>
                         </div>
 
                         <div class="form-group checkbox-wrapper">
@@ -96,6 +111,23 @@
                                 <span class="checkmark"></span>
                                 <span class="label-text">Yes, it's okay to contact me by phone during the trial.</span>
                             </label>
+                        </div>
+
+                        <div class="form-group" id="phoneContainer" style="display: none;">
+                            <label for="phoneNumber">Phone Number (Optional) <span class="required-star"
+                                    style="display: none;">*</span></label>
+                            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="(000) 000-0000"
+                                onfocus="removePhoneFormat(this)" onblur="formatPhone(this)" value="0000000000">
+                            <span class="error-message" id="error-phoneNumber">Please enter a valid phone number</span>
+                            <span class="tooltip-text">
+                                <em>Select contact list to include this number on your contacts page for
+                                    administrators.</em>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="g-recaptcha" data-sitekey="6Ld2oOASAAAAAH1wshS6lbpDACvtyO58sTcUViCN"></div>
+                            <span class="error-message" id="error-captcha">Please verify that you are not a robot</span>
                         </div>
 
                         <button type="submit" class="btn-create-trial" id="trialButton">
@@ -173,7 +205,7 @@
                             <img src="public/images/logo-4-land.svg" alt="BETA" width="48" height="34">
                             <img src="public/images/logo-5-land.svg" alt="Discovery" width="112" height="35">
                             <img src="public/images/logo-6-land.svg" alt="Inland" width="55" height="35">
-                            
+
                         </div>
                     </div>
 
@@ -181,7 +213,7 @@
                         <h3>Have us buy out your contract today!</h3>
                         <p>Have a question? Just <a href="aboutus.html" class="underline-link"><strong>drop us a
                                     note</strong></a> or call us at <a href="tel:3372315877"
-                                 class="phone-link"><strong>(337) 231-5877</strong></a></p>
+                                class="phone-link"><strong>(337) 231-5877</strong></a></p>
                     </div>
                 </div>
             </div>
@@ -192,7 +224,131 @@
     <script src="public/js/header-logic.js"></script>
     <script src="public/js/header-logon.js"></script>
     <script>
+        const takenUsernames = ['rsingh', 'rsingh2', 'jsmith'];
+        let usernameTimeout = null;
+
+        function autoFillCompany() {
+            const first = document.getElementById('firstName').value.trim();
+            const last = document.getElementById('lastName').value.trim();
+            const companyInput = document.getElementById('companyName');
+
+            if (first || last) {
+                let name = (first + ' ' + last).trim();
+                companyInput.value = name + "'s Trial Brokerage";
+                companyInput.dispatchEvent(new Event('input'));
+            } else {
+                companyInput.value = '';
+            }
+        }
+
+        function checkUsername(isSuggest = false) {
+            clearTimeout(usernameTimeout);
+            usernameTimeout = setTimeout(() => {
+                const userNameInput = document.getElementById('userName');
+                const errorSpan = document.getElementById('error-userName');
+                const trialButton = document.getElementById('trialButton');
+                let username = userNameInput.value.trim().toLowerCase();
+
+                if (!username) return;
+
+                let finalUsername = username;
+
+                if (isSuggest) {
+                    let counter = 2;
+                    while (takenUsernames.includes(finalUsername)) {
+                        finalUsername = username + counter;
+                        counter++;
+                    }
+                    userNameInput.value = finalUsername;
+                    userNameInput.dispatchEvent(new Event('input'));
+                } else {
+                    const checkUserNameRegex = /^[a-zA-Z0-9\_\-]+$/;
+                    if (!checkUserNameRegex.test(username)) {
+                        userNameInput.classList.add('invalid-input');
+                        errorSpan.textContent = "UserName may only contain letters, numbers, underscores and hyphens.";
+                        errorSpan.style.display = 'block';
+                        userNameInput.focus();
+                        trialButton.disabled = true;
+                    } else if (!(username.length > 2 && username.length < 13)) {
+                        userNameInput.classList.add('invalid-input');
+                        errorSpan.textContent = "Usernames must be bettween 4 and 12 characters long.";
+                        errorSpan.style.display = 'block';
+                        userNameInput.focus();
+                        trialButton.disabled = true;
+                    } else if (takenUsernames.includes(username)) {
+                        userNameInput.classList.add('invalid-input');
+                        errorSpan.textContent = "This username is already in use.";
+                        errorSpan.style.display = 'block';
+                        userNameInput.focus();
+                        trialButton.disabled = true;
+                    } else {
+                        userNameInput.classList.remove('invalid-input');
+                        errorSpan.style.display = 'none';
+                        trialButton.disabled = false;
+                    }
+                }
+            }, 600);
+        }
+
+        function generateUsername() {
+            const first = document.getElementById('firstName').value.trim();
+            const last = document.getElementById('lastName').value.trim();
+
+            if (first && last) {
+                let userName = first.substring(0, 1);
+                if (last.length > 10) {
+                    userName += last.substring(0, 10);
+                } else {
+                    userName += last;
+                }
+                userName = userName.toLowerCase().replace(/[^a-z0-9\_\-]/g, '');
+                const userNameInput = document.getElementById('userName');
+                userNameInput.value = userName;
+                checkUsername(true);
+            }
+        }
+
+        function togglePhone() {
+            const contactMe = document.getElementById('contactMe');
+            const phoneContainer = document.getElementById('phoneContainer');
+            const phoneInput = document.getElementById('phoneNumber');
+            const errorSpan = document.getElementById('error-phoneNumber');
+
+            if (contactMe.checked) {
+                phoneContainer.style.display = 'block';
+            } else {
+                phoneContainer.style.display = 'none';
+                phoneInput.value = '';
+                phoneInput.classList.remove('invalid-input');
+                if (errorSpan) errorSpan.style.display = 'none';
+            }
+        }
+
+        function removePhoneFormat(input) {
+            input.value = input.value.replace(/\D/g, '');
+        }
+
+        function formatPhone(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length >= 11 && value.charAt(0) === '1') {
+                let ext = value.slice(11, 16);
+                input.value = `1 (${value.slice(1, 4)}) ${value.slice(4, 7)}-${value.slice(7, 11)}${ext ? ' ext. ' + ext : ''}`;
+            } else if (value.length >= 10) {
+                let ext = value.slice(10, 15);
+                input.value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}${ext ? ' ext. ' + ext : ''}`;
+            } else if (value.length >= 7) {
+                input.value = `${value.slice(0, 3)}-${value.slice(3, 7)}`;
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('lastName').addEventListener('blur', () => {
+                autoFillCompany();
+                generateUsername();
+            });
+            document.getElementById('contactMe').addEventListener('change', togglePhone);
+            document.getElementById('userName').addEventListener('input', () => checkUsername(false));
+
             const trialForm = document.getElementById('trialSignupForm');
             const trialButton = document.getElementById('trialButton');
             const btnText = trialButton.querySelector('.btn-text');
@@ -214,10 +370,6 @@
                 email: {
                     regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                     errorMsg: "Please enter a valid email address"
-                },
-                userName: {
-                    regex: /^[a-zA-Z0-9_-]{3,20}$/,
-                    errorMsg: "User Name can't be empty (3-20 chars)"
                 }
             };
 
@@ -249,8 +401,8 @@
                     });
                 });
 
-                trialForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
+                function SubmitModal(e) {
+                    if (e) e.preventDefault();
 
                     let isValid = true;
                     Object.keys(validationRules).forEach(id => {
@@ -258,6 +410,80 @@
                             isValid = false;
                         }
                     });
+
+                    // Check username validity
+                    const userNameInput = document.getElementById('userName');
+                    const usernameVal = userNameInput.value.trim().toLowerCase();
+                    const checkUserNameRegex = /^[a-zA-Z0-9\_\-]+$/;
+
+                    if (!usernameVal) {
+                        userNameInput.classList.add('invalid-input');
+                        const errorSpan = document.getElementById('error-userName');
+                        errorSpan.textContent = "User Name can't be empty";
+                        errorSpan.style.display = 'block';
+                        isValid = false;
+                    } else if (!checkUserNameRegex.test(usernameVal)) {
+                        userNameInput.classList.add('invalid-input');
+                        const errorSpan = document.getElementById('error-userName');
+                        errorSpan.textContent = "UserName may only contain letters, numbers, underscores and hyphens.";
+                        errorSpan.style.display = 'block';
+                        isValid = false;
+                    } else if (!(usernameVal.length > 2 && usernameVal.length < 13)) {
+                        userNameInput.classList.add('invalid-input');
+                        const errorSpan = document.getElementById('error-userName');
+                        errorSpan.textContent = "Usernames must be bettween 4 and 12 characters long.";
+                        errorSpan.style.display = 'block';
+                        isValid = false;
+                    } else if (takenUsernames.includes(usernameVal)) {
+                        userNameInput.classList.add('invalid-input');
+                        const errorSpan = document.getElementById('error-userName');
+                        errorSpan.textContent = "This username is already in use.";
+                        errorSpan.style.display = 'block';
+                        isValid = false;
+                    } else {
+                        userNameInput.classList.remove('invalid-input');
+                        const errorSpan = document.getElementById('error-userName');
+                        if (errorSpan) errorSpan.style.display = 'none';
+                    }
+
+                    // Check phone number if enabled
+                    const contactMe = document.getElementById('contactMe');
+                    const phoneInput = document.getElementById('phoneNumber');
+                    if (contactMe.checked) {
+                        const digits = phoneInput.value.replace(/\D/g, '');
+                        let isValidPhone = false;
+                        if (digits.length === 0) {
+                            isValidPhone = true;
+                        } else if (digits.length >= 11 && digits.charAt(0) === '1') {
+                            isValidPhone = true;
+                        } else if (digits.length >= 10) {
+                            isValidPhone = true;
+                        } else if (digits.length >= 7 && digits.length <= 9) {
+                            isValidPhone = true;
+                        }
+
+                        if (!isValidPhone) {
+                            phoneInput.classList.add('invalid-input');
+                            const errorSpan = document.getElementById('error-phoneNumber');
+                            if (errorSpan) errorSpan.style.display = 'block';
+                            isValid = false;
+                        } else {
+                            phoneInput.classList.remove('invalid-input');
+                            const errorSpan = document.getElementById('error-phoneNumber');
+                            if (errorSpan) errorSpan.style.display = 'none';
+                        }
+                    }
+
+                    // Check captcha
+                    const captchaError = document.getElementById('error-captcha');
+                    if (typeof grecaptcha !== 'undefined') {
+                        if (grecaptcha.getResponse().length === 0) {
+                            if (captchaError) captchaError.style.display = 'block';
+                            isValid = false;
+                        } else {
+                            if (captchaError) captchaError.style.display = 'none';
+                        }
+                    }
 
                     if (!isValid) return;
 
@@ -268,9 +494,11 @@
 
                     // Simulate Account Creation
                     setTimeout(() => {
-                        window.location.href = 'logon.html';
+                        window.location.href = 'signupcompleted.html';
                     }, 1500);
-                });
+                }
+
+                trialForm.addEventListener('submit', SubmitModal);
             }
         });
     </script>
